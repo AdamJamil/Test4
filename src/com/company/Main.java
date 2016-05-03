@@ -45,7 +45,7 @@ public class Main extends Application
     @Override
     public void start(Stage primaryStage)
     {
-        primaryStage.setTitle("Test");
+        primaryStage.setTitle("Test");                                                       //loads javafx setup
         Canvas canvas = new Canvas(pixelWidth, pixelHeight);
         StackPane root = new StackPane();
         root.getChildren().add(canvas);
@@ -55,20 +55,16 @@ public class Main extends Application
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        KeyFrame frame = new KeyFrame(Duration.millis(4f),
+        KeyFrame frame = new KeyFrame(Duration.millis(4f),                                   //sets loop to 4ms delay
             new EventHandler<ActionEvent>()
             {
                 @Override
-                public void handle(ActionEvent event)
+                public void handle(ActionEvent event)                                        //core game logic method
                 {
-                    canvas.getGraphicsContext2D().clearRect(0, 0, pixelWidth, pixelHeight);
+                    canvas.getGraphicsContext2D().clearRect(0, 0, pixelWidth, pixelHeight);  //clear screen
+
                 }
             });
-    }
-
-    public void keyFrame()
-    {
-
     }
 
     public void onKeyPressed(KeyEvent e)
