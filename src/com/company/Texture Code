@@ -1,2 +1,10 @@
 RGB            Sum  Image
 {  0,  0,  0}    0  Grass
+
+
+
+
+
+
+
+//Sum = R + (G * 256) + (B * 256 * 256)

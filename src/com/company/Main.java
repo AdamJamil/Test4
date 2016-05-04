@@ -34,40 +34,29 @@ import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Sequencer;
 
-public class Main extends Application
+public class Main extends Application implements Constants
 {
-    final private int tileSize = 16;
-    final private int width = 80;
-    final private int height = 45;
-    final private int pixelWidth = tileSize * width;
-    final private int pixelHeight = tileSize * height;
-    private short imagesLoaded = 0;
-    private HashMap<Short, Image> textures = new HashMap<>();
-    private HashMap<Short, Image> maps = new HashMap<>();
+    public ViewPortLoader vpl;
+    private Canvas canvas;
 
     @Override
     public void start(Stage primaryStage)
     {
-        try                                                                                  //loads all images from Textures into the HashMap,
-        {                                                                                    //and logs them based on the number assigned to their name
-            for(imagesLoaded = 0; imagesLoaded >= 0; imagesLoaded++)
-                textures.put(imagesLoaded, new Image("Textures//" + Short.toString(imagesLoaded) + ".png"));
-        } catch(IllegalArgumentException e) {System.out.println("Successfully loaded " + (imagesLoaded ) + " image(s)!");}
-
         primaryStage.setTitle("Test");                                                       //loads javafx setup
-        Canvas canvas = new Canvas(pixelWidth, pixelHeight);                                 //this code is mostly irrelevant and only implements the
+        canvas = new Canvas(pixelWidth, pixelHeight);                                        //this code is mostly irrelevant and only implements the
         StackPane root = new StackPane();                                                    //javafx canvas, root and scene.
-        root.getChildren().add(canvas);                                                      //the screen size and listeners are added in here
+        root.getChildren().add(canvas);                                                      //the screen size and listeners are also added in here
         Scene scene = new Scene(root, pixelWidth, pixelHeight);
         scene.setOnKeyPressed(this::onKeyPressed);
         scene.setOnKeyReleased(this::onKeyReleased);
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        vpl = new ViewPortLoader(canvas);                                                    //creates the ViewPortLoader objects and gives it the canvas so that
+                                                                                             //it can draw to it
         KeyFrame frame = new KeyFrame(Duration.millis(4f), (event) ->                        //sets loop to 4ms delay
         {
-            canvas.getGraphicsContext2D().clearRect(0, 0, pixelWidth, pixelHeight);          //clear screen
-
+            vpl.loadViewPort();
         });
     }
 
