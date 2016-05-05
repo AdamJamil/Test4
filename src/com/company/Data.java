@@ -5,6 +5,11 @@ public class Data implements java.io.Serializable
     private Player player;
     private int currentMap;
 
+    public Data()
+    {
+
+    }
+
     public Player getPlayer()
     {
         return player;

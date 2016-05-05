@@ -9,7 +9,8 @@ public class ViewPortLoader implements Constants
     private short imagesLoaded = 0;
     private short mapsLoaded = 0;
     private HashMap<Short, Image> textures = new HashMap<>();
-    private HashMap<Short, Image> maps = new HashMap<>();
+    private HashMap<Short, Image> mapTileSets = new HashMap<>();
+    private HashMap<Short, Map> mapInformation = new HashMap<>();
     private Canvas canvas;
     private Player player;
     private Data data;
@@ -29,12 +30,15 @@ public class ViewPortLoader implements Constants
         try                                                                                  //loads all maps, just like the images
         {
             for(mapsLoaded = 0; mapsLoaded >= 0; mapsLoaded++)
-                maps.put(mapsLoaded, new Image("Maps//" + Short.toString(mapsLoaded) + ".png"));
+                mapTileSets.put(mapsLoaded, new Image("Maps//" + Short.toString(mapsLoaded) + ".png"));
         } catch(IllegalArgumentException e) {System.out.println("Successfully loaded " + (mapsLoaded) + " map(s)!");}
     }
 
-    public void loadViewPort()                                                               //this needs to take in the current vars, or already have access
+    public void loadViewPort()
     {
-        canvas.getGraphicsContext2D().clearRect(0, 0, pixelWidth, pixelHeight);
+        int cameraStartX, cameraStartY;                                                      //coordinate of the top-leftmost pixel drawn
+        int relPlayerX, relPlayerY;                                                          //where the player appears relative to the camera
+        canvas.getGraphicsContext2D().clearRect(0, 0, pixelWidth, pixelHeight);              //clears screen
+        if (player.getX() <= )
     }
 }

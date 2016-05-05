@@ -50,9 +50,7 @@ public class Main extends Application implements Constants
 
         vpl = new ViewPortLoader(canvas, player, data);                                      //gives the ViewPortLoader the relevant information to draw
                                                                                              //and the canvas, onto which it will draw
-        KeyFrame frame = new KeyFrame(Duration.millis(4f), (event) ->                        //sets loop to 4ms delay
-            vpl.loadViewPort()
-        );
+        KeyFrame frame = new KeyFrame(Duration.millis(4f), (event) -> vpl.loadViewPort());   //sets loop to 4ms delay, and calls the art loader
     }
 
     public void onKeyPressed(KeyEvent e)
@@ -65,7 +63,7 @@ public class Main extends Application implements Constants
 
     }
 
-    public static void save(Serializable data, String fileName)                              //kenny's methods for save/load
+    public void save(Serializable data, String fileName)                                     //kenny's methods for save/load
     {                                                                                        //get kenny to comment this!
         try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(Files.newOutputStream(Paths.get(fileName))))
         {
@@ -77,11 +75,11 @@ public class Main extends Application implements Constants
         }
     }
 
-    public static Object load(String fileName) throws Exception
+    public Data load(String fileName) throws Exception
     {
         try(ObjectInputStream objectInputStream = new ObjectInputStream(Files.newInputStream(Paths.get(fileName))))
         {
-            return objectInputStream.readObject();
+            return (Data)objectInputStream.readObject();
         }
     }
 
