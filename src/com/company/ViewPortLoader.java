@@ -11,10 +11,14 @@ public class ViewPortLoader implements Constants
     private HashMap<Short, Image> textures = new HashMap<>();
     private HashMap<Short, Image> maps = new HashMap<>();
     private Canvas canvas;
+    private Player player;
+    private Data data;
 
-    public ViewPortLoader(Canvas input)
+    public ViewPortLoader(Canvas aCanvas, Player aPlayer, Data someData)
     {
-        canvas = input;                                                                      //gets the canvas that was loaded in Main, so that it can draw to it
+        canvas = aCanvas;                                                                    //gets the canvas that was loaded in Main, so that it can draw to it
+        player = aPlayer;                                                                    //gets the player so that it can be drawn
+        data = someData;                                                                     //gets more relevant information for drawing
 
         try                                                                                  //loads all images from Textures into the HashMap,
         {                                                                                    //and logs them based on the number assigned to their name

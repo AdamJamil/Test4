@@ -1,15 +1,9 @@
 package com.company;
 
 import java.awt.FontFormatException;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -38,6 +32,8 @@ public class Main extends Application implements Constants
 {
     public ViewPortLoader vpl;
     private Canvas canvas;
+    private Player player;
+    private Data data;
 
     @Override
     public void start(Stage primaryStage)
@@ -52,12 +48,11 @@ public class Main extends Application implements Constants
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        vpl = new ViewPortLoader(canvas);                                                    //creates the ViewPortLoader objects and gives it the canvas so that
-                                                                                             //it can draw to it
+        vpl = new ViewPortLoader(canvas, player, data);                                      //gives the ViewPortLoader the relevant information to draw
+                                                                                             //and the canvas, onto which it will draw
         KeyFrame frame = new KeyFrame(Duration.millis(4f), (event) ->                        //sets loop to 4ms delay
-        {
-            vpl.loadViewPort();
-        });
+            vpl.loadViewPort()
+        );
     }
 
     public void onKeyPressed(KeyEvent e)
@@ -68,6 +63,26 @@ public class Main extends Application implements Constants
     public void onKeyReleased(KeyEvent e)
     {
 
+    }
+
+    public static void save(Serializable data, String fileName)                              //kenny's methods for save/load
+    {                                                                                        //get kenny to comment this!
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(Files.newOutputStream(Paths.get(fileName))))
+        {
+            objectOutputStream.writeObject(data);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static Object load(String fileName) throws Exception
+    {
+        try(ObjectInputStream objectInputStream = new ObjectInputStream(Files.newInputStream(Paths.get(fileName))))
+        {
+            return objectInputStream.readObject();
+        }
     }
 
     public static void main(String[] args)
