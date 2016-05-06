@@ -4,7 +4,7 @@ public class Data implements java.io.Serializable
 {
     private Player player = new Player();
     private int currentMap = 0;
-    private Map instanceMap = new Map();
+    private Map instanceMap = null;
 
     public Data()
     {
