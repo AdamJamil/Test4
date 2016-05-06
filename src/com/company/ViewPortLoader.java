@@ -11,10 +11,9 @@ public class ViewPortLoader implements Constants
     private Player player;
     private Data data;
 
-    public ViewPortLoader(GraphicsContext aGraphicsContext, Player aPlayer, Data someData)
+    public ViewPortLoader(GraphicsContext aGraphicsContext, Data someData)
     {
         graphicsContext = aGraphicsContext;                                                  //gets the gc that was loaded in Main, so that it can draw to it
-        player = aPlayer;                                                                    //gets the player so that it can be drawn
         data = someData;                                                                     //gets more relevant information for drawing
     }
 

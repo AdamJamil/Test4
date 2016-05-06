@@ -6,6 +6,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.Scanner;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -59,26 +61,33 @@ public class Main extends Application implements Constants
         {                                                                                    //and logs them based on the number assigned to their name
             for(imagesLoaded = 0; imagesLoaded >= 0; imagesLoaded++)
             {
-                textures.put(imagesLoaded, new Image("file:" + Short.toString(imagesLoaded) + ".png"));
+                textures.put(imagesLoaded, new Image("Textures//" + Short.toString(imagesLoaded) + ".png"));
                 System.out.println(textures.get(imagesLoaded).getHeight());
             }
         }
         catch(IllegalArgumentException e)
         {
+            e.printStackTrace();
             System.out.println("Successfully loaded " + (imagesLoaded) + " image(s)!");
         }
 
+        //this block of code (below) takes the string from the file 'maps//0.txt', etc. and converts from json format into a map information object
+        //it is then put into the hashmap with the key of a number, and that number is the same as the file location name
+        //since the Image class cannot be loaded through a JSON, it is loaded separately
         try
         {
-            for(mapsLoaded = 0; mapsLoaded >= 0; mapsLoaded++)
-                maps.put(mapsLoaded, new Map(new Image("Maps//" + Short.toString(mapsLoaded) + ".png"), mapsLoaded));
+            for(mapsLoaded = 0; mapsLoaded < mapsToLoad; mapsLoaded++)
+            {
+                maps.put(mapsLoaded, gson.fromJson(new Scanner(new File(MyClass.class.getResource("../path/to/tests/" + name).getFile())).useDelimiter("\\Z").next(), Map.class));
+            }
         }
-        catch(IllegalArgumentException e)
+        catch(IllegalArgumentException|FileNotFoundException e)
         {
+            e.printStackTrace();
             System.out.println("Successfully loaded " + (mapsLoaded) + " map(s)!");
         }
 
-        vpl = new ViewPortLoader(canvas.getGraphicsContext2D(), player, data);               //gives the ViewPortLoader the relevant information to draw
+        vpl = new ViewPortLoader(canvas.getGraphicsContext2D(), data);                       //gives the ViewPortLoader the relevant information to draw
                                                                                              //and the canvas, onto which it will draw
 
         KeyFrame frame = new KeyFrame(Duration.millis(4f), (event) -> vpl.loadViewPort());   //sets loop to 4ms delay, and calls the art loader
