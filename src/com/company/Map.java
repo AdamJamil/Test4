@@ -1,23 +1,37 @@
 package com.company;
 
+import javafx.scene.image.Image;
+
 public class Map
 {
-    private int mapWidth;
-    private int mapHeight;
+    private double mapWidth;
+    private double mapHeight;
+    private Image imageMap;
 
-    public Map()
+    public Map(Image imageMap)
     {
-        mapHeight = 0;
-        mapWidth = 0;
+        this.imageMap = imageMap;
+        mapHeight = imageMap.getHeight();
+        mapWidth = imageMap.getWidth();
     }
 
-    public int getMapHeight()
+    public double getMapHeight()
     {
         return mapHeight;
     }
 
-    public int getMapWidth()
+    public double getMapWidth()
     {
         return mapWidth;
+    }
+
+    public Image getImageMap()
+    {
+        return imageMap;
+    }
+
+    public void setImageMap(Image imageMap)
+    {
+        this.imageMap = imageMap;
     }
 }

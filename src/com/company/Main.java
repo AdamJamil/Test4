@@ -32,7 +32,6 @@ import javax.sound.midi.Sequencer;
 public class Main extends Application implements Constants
 {
     public ViewPortLoader vpl;
-    private Canvas canvas;
     private Player player;
     private Data data = new Data();
     Image img = null;
@@ -40,8 +39,13 @@ public class Main extends Application implements Constants
     @Override
     public void start(Stage primaryStage)
     {
+        Gson gson = new Gson();
+        HashMap<Short, Image> textures = new HashMap<>();
+        HashMap<Short, Map> maps = new HashMap<>();
+        short imagesLoaded = 0, mapsLoaded = 0;
+
         primaryStage.setTitle("Test");                                                       //loads javafx setup
-        canvas = new Canvas(pixelWidth, pixelHeight);                                        //this code is mostly irrelevant and only implements the
+        Canvas canvas = new Canvas(pixelWidth, pixelHeight);                                 //this code is mostly irrelevant and only implements the
         StackPane root = new StackPane();                                                    //javafx canvas, root and scene.
         root.getChildren().add(canvas);                                                      //the screen size and listeners are also added in here
         Scene scene = new Scene(root, pixelWidth, pixelHeight);
@@ -50,7 +54,30 @@ public class Main extends Application implements Constants
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        vpl = new ViewPortLoader(canvas.getGraphicsContext2D(), player, data);                                      //gives the ViewPortLoader the relevant information to draw
+        try                                                                                  //loads all images from Textures into the HashMap,
+        {                                                                                    //and logs them based on the number assigned to their name
+            for(imagesLoaded = 0; imagesLoaded >= 0; imagesLoaded++)
+            {
+                textures.put(imagesLoaded, new Image("file:" + Short.toString(imagesLoaded) + ".png"));
+                System.out.println(textures.get(imagesLoaded).getHeight());
+            }
+        }
+        catch(IllegalArgumentException e)
+        {
+            System.out.println("Successfully loaded " + (imagesLoaded) + " image(s)!");
+        }
+
+        try
+        {
+            for(mapsLoaded = 0; mapsLoaded >= 0; mapsLoaded++)
+                maps.put(mapsLoaded, new Map(new Image("Maps//" + Short.toString(mapsLoaded) + ".png")));
+        }
+        catch(IllegalArgumentException e)
+        {
+            System.out.println("Successfully loaded " + (mapsLoaded) + " map(s)!");
+        }
+
+        vpl = new ViewPortLoader(canvas.getGraphicsContext2D(), player, data);               //gives the ViewPortLoader the relevant information to draw
                                                                                              //and the canvas, onto which it will draw
 
         KeyFrame frame = new KeyFrame(Duration.millis(4f), (event) -> vpl.loadViewPort());   //sets loop to 4ms delay, and calls the art loader
@@ -70,26 +97,6 @@ public class Main extends Application implements Constants
     public void onKeyReleased(KeyEvent e)
     {
 
-    }
-
-    public void save(Serializable data, String fileName)                                     //kenny's methods for save/load
-    {                                                                                        //get kenny to comment this!
-        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(Files.newOutputStream(Paths.get(fileName))))
-        {
-            objectOutputStream.writeObject(data);
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    public Data load(String fileName) throws Exception
-    {
-        try(ObjectInputStream objectInputStream = new ObjectInputStream(Files.newInputStream(Paths.get(fileName))))
-        {
-            return (Data)objectInputStream.readObject();
-        }
     }
 
     public static void main(String[] args)
