@@ -42,6 +42,7 @@ public class Main extends Application implements Constants
         Gson gson = new Gson();
         HashMap<Short, Image> textures = new HashMap<>();
         HashMap<Short, Map> maps = new HashMap<>();
+        short mapsToLoad = 1;
         short imagesLoaded = 0, mapsLoaded = 0;
 
         primaryStage.setTitle("Test");                                                       //loads javafx setup
@@ -70,7 +71,7 @@ public class Main extends Application implements Constants
         try
         {
             for(mapsLoaded = 0; mapsLoaded >= 0; mapsLoaded++)
-                maps.put(mapsLoaded, new Map(new Image("Maps//" + Short.toString(mapsLoaded) + ".png")));
+                maps.put(mapsLoaded, new Map(new Image("Maps//" + Short.toString(mapsLoaded) + ".png"), mapsLoaded));
         }
         catch(IllegalArgumentException e)
         {
