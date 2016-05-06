@@ -24,7 +24,7 @@ public class InputHandler implements KeyListener
             return false;
     }
 
-    public void keyPressed(KeyEvent e)                  // Sets the index of the key pressed's keyCode to true
+    public void keyPressed(KeyEvent e)                  // Sets the index of the key pressed's keyCode to true              lollerz
     {                                                   // adds the current key pressed's keyCode to the stack
         if(e.getKeyCode() > 0 && e.getKeyCode() < 256)
         {
