@@ -1,5 +1,6 @@
 package com.company;
 
+import com.google.gson.Gson;
 import java.awt.FontFormatException;
 import java.io.*;
 import java.nio.file.Files;
@@ -33,7 +34,8 @@ public class Main extends Application implements Constants
     public ViewPortLoader vpl;
     private Canvas canvas;
     private Player player;
-    private Data data;
+    private Data data = new Data();
+    Image img = null;
 
     @Override
     public void start(Stage primaryStage)
@@ -48,9 +50,16 @@ public class Main extends Application implements Constants
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        vpl = new ViewPortLoader(canvas, player, data);                                      //gives the ViewPortLoader the relevant information to draw
+        vpl = new ViewPortLoader(canvas.getGraphicsContext2D(), player, data);                                      //gives the ViewPortLoader the relevant information to draw
                                                                                              //and the canvas, onto which it will draw
+
         KeyFrame frame = new KeyFrame(Duration.millis(4f), (event) -> vpl.loadViewPort());   //sets loop to 4ms delay, and calls the art loader
+        Timeline timeline = new Timeline();
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.setAutoReverse(true);
+        timeline.getKeyFrames().add(frame);
+        timeline.play();
+
     }
 
     public void onKeyPressed(KeyEvent e)

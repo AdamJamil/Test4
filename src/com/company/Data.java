@@ -2,8 +2,9 @@ package com.company;
 
 public class Data implements java.io.Serializable
 {
-    private Player player;
-    private int currentMap;
+    private Player player = new Player();
+    private int currentMap = 0;
+    private Map instanceMap = new Map();
 
     public Data()
     {
