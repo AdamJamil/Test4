@@ -83,7 +83,6 @@ public class Main extends Application implements Constants
         {
             vpl.loadViewPort();
             KeyCode action = inputHandler.getAction();
-            System.out.println(action);
             if (action == KeyCode.S)
                 data.getPlayer().incrementY(1);
             if (action == KeyCode.W)

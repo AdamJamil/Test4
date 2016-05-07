@@ -35,6 +35,7 @@ public class InputHandler
             stack.add(x);
         else
         {
+            inStack = false;
             for(int i = stack.size() - 1; i >= 0; i--)
             {
                 if(stack.get(i) == x)
@@ -59,6 +60,11 @@ public class InputHandler
         if (stack.size() == 0)
             return KeyCode.DEAD_ABOVEDOT;
         return stack.get(0);
+    }
+
+    public ArrayList<KeyCode> getStack()
+    {
+        return stack;
     }
 
     //returns an element at a specific index of stack
