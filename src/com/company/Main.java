@@ -25,7 +25,7 @@ public class Main extends Application implements Constants
     public void start(Stage primaryStage)
     {
         Gson gson = new Gson();
-        short mapsToLoad = 1, imagesToLoad = 1;
+        short mapsToLoad = 1, imagesToLoad = 3;
         short imagesLoaded, mapsLoaded;
 
         //loads javafx setup
@@ -79,21 +79,12 @@ public class Main extends Application implements Constants
         vpl = new ViewPortLoader(canvas.getGraphicsContext2D(), data);
 
         //sets loop to 4ms delay, and calls the art loader
-        data.getPlayer().setX(700);
+        data.getPlayer().setX(750);
         data.getPlayer().setY(250);
+        //canvas.translateXProperty().setValue(-pixelWidth / (scale));
+        //canvas.translateYProperty().setValue(-pixelHeight / (scale));
         KeyFrame frame = new KeyFrame(Duration.millis(4f), (event) ->
         {
-            incTime();
-            if (time > 100)
-            {
-                canvas.setScaleX(scale);
-                canvas.setScaleY(scale);
-                System.out.println(data.getPlayer().getX());
-                System.out.println(data.getPlayer().getY());
-                System.out.println();
-            }
-            else
-                System.out.println(time);
             vpl.loadViewPort();
             KeyCode action = inputHandler.getAction();
             if (action == KeyCode.S)
@@ -113,13 +104,6 @@ public class Main extends Application implements Constants
         timeline.getKeyFrames().add(frame);
         timeline.play();
 
-    }
-
-    long time = 0;
-
-    public void incTime()
-    {
-        time++;
     }
 
     public void onKeyPressed(KeyEvent e)

@@ -37,14 +37,12 @@ public class Map
         imageMap = new Short[mapWidth][mapHeight];
         //next two vars are used to convert each pixel to a single numeric value
         PixelReader pixelReader = imageSource.getPixelReader();
-        Color pixelColor;
 
         for(int i = 0; i < imageSource.getWidth(); i++)
         {
             for(int j = 0; j < imageSource.getHeight(); j++)
             {
-                pixelColor = pixelReader.getColor(i,j);
-                imageMap[i][j] = (short)(pixelColor.getBlue() + (pixelColor.getGreen() * 256) + (pixelColor.getRed() * 256 * 256));
+                imageMap[i][j] = (short)(pixelReader.getArgb(i, j));
             }
         }
     }

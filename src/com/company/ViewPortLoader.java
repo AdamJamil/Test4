@@ -75,12 +75,13 @@ public class ViewPortLoader implements Constants
             for(int j = cameraStartY / tileSize; j < (cameraStartX / tileSize) + width; j++)
             {
                 graphicsContext.drawImage(textures.get(currentMap.getImageMap()[i][j]),      //i and j have to be shifted back to 0 in order to draw to the screen properly
-                    ((i - cameraStartX / tileSize) * tileSize) - relPlayerShiftX,            //the imagemap stores which image to draw to each tile
-                    ((j - cameraStartY / tileSize) * tileSize) - relPlayerShiftY);
+                    ((i - cameraStartX / tileSize) * tileSize * scale) - relPlayerShiftX * scale,            //the imagemap stores which image to draw to each tile
+                    ((j - cameraStartY / tileSize) * tileSize * scale) - relPlayerShiftY * scale,
+                    tileSize * scale, tileSize * scale);
             }
         }
 
         //draws the player with the available sprite in player(which extends drawable)
-        graphicsContext.drawImage(player.getSprite(), relPlayerX, relPlayerY);
+        graphicsContext.drawImage(player.getSprite(), relPlayerX, relPlayerY, tileSize * scale, tileSize * scale);
     }
 }

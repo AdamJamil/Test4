@@ -2,7 +2,7 @@ package com.company;
 
 public interface Constants
 {
-    double scale = 4;
+    int scale = 2;
     int tileSize = 16;
     int width = 85;
     int height = 45;
