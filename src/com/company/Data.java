@@ -15,6 +15,7 @@ public class Data implements java.io.Serializable
     {
         textures = new HashMap<>();
         maps = new HashMap<>();
+        currentMapIndex = 0;
     }
 
     public Player getPlayer()
