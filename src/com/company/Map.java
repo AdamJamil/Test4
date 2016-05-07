@@ -1,9 +1,5 @@
 package com.company;
 
-import com.google.gson.Gson;
-import java.io.File;
-import java.io.IOException;
-import java.util.Scanner;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.paint.Color;

@@ -1,7 +1,6 @@
 package com.company;
 
 import javafx.scene.image.Image;
-
 import java.util.HashMap;
 
 public class Data implements java.io.Serializable
