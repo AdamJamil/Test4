@@ -42,7 +42,7 @@ public class Main extends Application implements Constants
     {
         Gson gson = new Gson();
         short mapsToLoad = 1, imagesToLoad = 1;
-        short imagesLoaded = 0, mapsLoaded = 0;
+        short imagesLoaded, mapsLoaded;
 
         //loads javafx setup
         //this code is mostly irrelevant and only implements the
@@ -95,13 +95,12 @@ public class Main extends Application implements Constants
         vpl = new ViewPortLoader(canvas.getGraphicsContext2D(), data);
 
         //sets loop to 4ms delay, and calls the art loader
-        data.getPlayer().setX(0);
         KeyFrame frame = new KeyFrame(Duration.millis(4f), (event) ->
         {
             vpl.loadViewPort();
-            data.getPlayer().incrementX(1);
-            data.getPlayer().incrementY(1);
         });
+
+        //this just puts the timeline (or main game logic) in motion
         Timeline timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.setAutoReverse(true);

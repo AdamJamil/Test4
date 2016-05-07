@@ -7,6 +7,7 @@ public class Drawable
 {
     WalkingStatus walkingStatus;
     transient HashMap<WalkingStatus, Image> sprites = new HashMap<>();
+
     public Image getSprite()
     {
         return sprites.get(this.walkingStatus);
