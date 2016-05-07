@@ -20,16 +20,16 @@ public class InputHandler
     public void keyPressed(KeyEvent e)                  // Sets the index of the key pressed's keyCode to true
     {                                                   // adds the current key pressed's keyCode to the stack
         keys.put(e.getCode(), true);
-        addStack(e.getCode());
+        addToStack(e.getCode());
     }
 
     public void keyReleased(KeyEvent e)                 //Sets the index of the key released's keyCode to false
     {                                                   //removes any key released from the stack
         keys.put(e.getCode(), false);
-        removeStack(e.getCode());
+        removeFromStack(e.getCode());
     }
 
-    public void addStack(KeyCode x)                     //If the stack size is 0 it just adds the integer to the arraylist
+    public void addToStack(KeyCode x)                   //If the stack size is 0 it just adds the integer to the arraylist
     {                                                   //Otherwise it scans through the list to see if it already exists
         if (stack.size() == 0)                          //If it does exist the element is not added
             stack.add(x);
@@ -46,7 +46,7 @@ public class InputHandler
         }
     }
 
-    public void removeStack(KeyCode x)                      //Searches through the stack and removes the element that matches the parameter value
+    public void removeFromStack(KeyCode x)             //Searches through the stack and removes the element that matches the parameter value
     {
         for(int i = stack.size() - 1; i >= 0; i--)
         {

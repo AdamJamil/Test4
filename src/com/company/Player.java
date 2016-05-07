@@ -19,7 +19,7 @@ public class Player extends Drawable implements java.io.Serializable
         InputStream inputStream = null;
         try
         {
-            inputStream = new FileInputStream(new File("./res/Sprites/Player/F0.png"));
+            inputStream = new FileInputStream(new File("./res/Sprites/Player/F1.png"));
         }
         catch (FileNotFoundException e)
         {

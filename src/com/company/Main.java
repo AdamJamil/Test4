@@ -79,8 +79,21 @@ public class Main extends Application implements Constants
         vpl = new ViewPortLoader(canvas.getGraphicsContext2D(), data);
 
         //sets loop to 4ms delay, and calls the art loader
+        data.getPlayer().setX(700);
+        data.getPlayer().setY(250);
         KeyFrame frame = new KeyFrame(Duration.millis(4f), (event) ->
         {
+            incTime();
+            if (time > 100)
+            {
+                canvas.setScaleX(scale);
+                canvas.setScaleY(scale);
+                System.out.println(data.getPlayer().getX());
+                System.out.println(data.getPlayer().getY());
+                System.out.println();
+            }
+            else
+                System.out.println(time);
             vpl.loadViewPort();
             KeyCode action = inputHandler.getAction();
             if (action == KeyCode.S)
@@ -100,6 +113,13 @@ public class Main extends Application implements Constants
         timeline.getKeyFrames().add(frame);
         timeline.play();
 
+    }
+
+    long time = 0;
+
+    public void incTime()
+    {
+        time++;
     }
 
     public void onKeyPressed(KeyEvent e)
