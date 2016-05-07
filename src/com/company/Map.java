@@ -13,7 +13,7 @@ public class Map
     private int mapWidth;
     private int mapHeight;
     transient private Image imageSource;
-    transient private int[][] imageMap;
+    transient private Short[][] imageMap;
 
     public int getMapHeight()
     {
@@ -33,7 +33,9 @@ public class Map
     public void setImageSource(Image imageSource)
     {
         this.imageSource = imageSource;
-        imageMap = new int[(int)imageSource.getWidth()][(int)imageSource.getHeight()];
+        mapWidth = (int)imageSource.getWidth();
+        mapHeight = (int)imageSource.getHeight();
+        imageMap = new Short[mapWidth][mapHeight];
         PixelReader pixelReader = imageSource.getPixelReader();
         Color pixelColor;
         for(int i = 0; i < imageSource.getWidth(); i++)
@@ -41,8 +43,13 @@ public class Map
             for(int j = 0; j < imageSource.getHeight(); j++)
             {
                 pixelColor = pixelReader.getColor(i,j);
-                imageMap[i][j] = (int)(pixelColor.getBlue() + (pixelColor.getGreen() * 256) + (pixelColor.getRed() * 256 * 256));
+                imageMap[i][j] = (short)(pixelColor.getBlue() + (pixelColor.getGreen() * 256) + (pixelColor.getRed() * 256 * 256));
             }
         }
+    }
+
+    public Short[][] getImageMap()
+    {
+        return imageMap;
     }
 }

@@ -75,6 +75,7 @@ public class InputHandler implements KeyListener
     {
         return stack.get(a);
     }
+
     //returns the size of the stack
     public int getSize()
     {

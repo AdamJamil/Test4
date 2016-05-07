@@ -1,6 +1,13 @@
 package com.company;
 
-public class Player implements java.io.Serializable
+import javafx.scene.image.Image;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
+public class Player extends Drawable implements java.io.Serializable
 {
     private int x;
     private int y;
@@ -9,6 +16,17 @@ public class Player implements java.io.Serializable
     {
         x = 0;
         y = 0;
+        walkingStatus = WalkingStatus.F0;
+        InputStream inputStream = null;
+        try
+        {
+            inputStream = new FileInputStream(new File("./res/Sprites/Player/F0.png"));
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        sprites.put(WalkingStatus.F0, new Image(inputStream));
     }
 
     public int getX()
@@ -21,6 +39,16 @@ public class Player implements java.io.Serializable
         this.x = x;
     }
 
+    public void incrementX(int increment)
+    {
+        x += increment;
+    }
+
+    public void incrementY(int increment)
+    {
+        y += increment;
+    }
+
     public int getY()
     {
         return y;
@@ -30,4 +58,6 @@ public class Player implements java.io.Serializable
     {
         this.y = y;
     }
+
+
 }

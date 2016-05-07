@@ -10,8 +10,7 @@ public class ViewPortLoader implements Constants
     private GraphicsContext graphicsContext;
     private Player player;
     private Data data;
-    private HashMap<Short, Image> textures = new HashMap<>();
-    private HashMap<Short, Map> maps = new HashMap<>();
+    private HashMap<Short, Image> textures;
 
     public ViewPortLoader(GraphicsContext aGraphicsContext, Data someData)
     {
@@ -19,14 +18,14 @@ public class ViewPortLoader implements Constants
         data = someData;                                                                     //gets more relevant information for drawing
         player = data.getPlayer();
         textures = data.getTextures();
-        maps = data.getMaps();
     }
 
     public void loadViewPort()
     {
         int cameraStartX, cameraStartY;                                                      //coordinate of the top-leftmost pixel drawn
         int relPlayerX, relPlayerY;                                                          //where the player appears relative to the camera
-        Map currentMap = maps.get(data.getCurrentMap());
+        int relPlayerShiftX, relPlayerShiftY;
+        Map currentMap = data.getCurrentMap();
 
         //clears screen
         graphicsContext.clearRect(0, 0, pixelWidth, pixelHeight);
@@ -36,34 +35,49 @@ public class ViewPortLoader implements Constants
         {
             cameraStartX = 0;
             relPlayerX = player.getX();
+            relPlayerShiftX = 0;
         }
-        else if (player.getX() >= (currentMap.getMapWidth() - (width / 2)) * tileSize)       //or clips camera to right map bound
+        else if (player.getX() >= (currentMap.getMapWidth() - (1 + width / 2)) * tileSize)   //or clips camera to right map bound
         {
             cameraStartX = (currentMap.getMapWidth() - width) * tileSize;
             relPlayerX = player.getX() - cameraStartX;
-        }                                                                                    //or simply sets camera x to player x
-        else
+            relPlayerShiftX = 0;
+        }
+        else                                                                                 //or simply sets camera x to player x
         {
             cameraStartX = player.getX() - (width / 2) * tileSize;
+            relPlayerX = (width / 2) * tileSize;
+            relPlayerShiftX = player.getX() % tileSize;
         }
 
         //y component of camera clipping
-        if (player.getY() <= (height / 2) * tileSize)                                         //clips camera to top map bound
+        if (player.getY() <= (height / 2) * tileSize)                                        //clips camera to top map bound
         {
             cameraStartY = 0;
             relPlayerY = player.getY();
+            relPlayerShiftY = 0;
         }
-
-        if (player.getY() >= (currentMap.getMapHeight() - (height / 2)) * tileSize)          //or clips camera to bottom map bound
+        else if (player.getY() >= (currentMap.getMapHeight() - (1 + height / 2)) * tileSize) //or clips camera to bottom map bound
         {
             cameraStartY = (currentMap.getMapHeight() - height) * tileSize;
             relPlayerY = player.getY() - cameraStartY;
-        }                                                                                    //or simply sets camera y to player y
-        else
+            relPlayerShiftY = 0;
+        }
+        else                                                                                 //or simply sets camera y to player y
         {
             cameraStartY = player.getY() - (height / 2) * tileSize;
+            relPlayerY = (height / 2) * tileSize;
+            relPlayerShiftY = player.getY() % tileSize;
         }
 
+        for(int i = cameraStartX / tileSize; i < (cameraStartX / tileSize) + width; i++)
+        {
+            for(int j = cameraStartY / tileSize; j < (cameraStartX / tileSize) + width; j++)
+            {
+                graphicsContext.drawImage(textures.get(currentMap.getImageMap()[i][j]), ((i - cameraStartX / tileSize) * tileSize) - relPlayerShiftX, ((j - cameraStartY / tileSize) * tileSize) - relPlayerShiftY);
+            }
+        }
 
+        graphicsContext.drawImage(player.getSprite(), relPlayerX, relPlayerY);
     }
 }

@@ -41,7 +41,7 @@ public class Main extends Application implements Constants
     public void start(Stage primaryStage)
     {
         Gson gson = new Gson();
-        short mapsToLoad = 1, imagesToLoad = 0;
+        short mapsToLoad = 1, imagesToLoad = 1;
         short imagesLoaded = 0, mapsLoaded = 0;
 
         //loads javafx setup
@@ -95,7 +95,13 @@ public class Main extends Application implements Constants
         vpl = new ViewPortLoader(canvas.getGraphicsContext2D(), data);
 
         //sets loop to 4ms delay, and calls the art loader
-        KeyFrame frame = new KeyFrame(Duration.millis(4f), (event) -> vpl.loadViewPort());
+        data.getPlayer().setX(0);
+        KeyFrame frame = new KeyFrame(Duration.millis(4f), (event) ->
+        {
+            vpl.loadViewPort();
+            data.getPlayer().incrementX(1);
+            data.getPlayer().incrementY(1);
+        });
         Timeline timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.setAutoReverse(true);

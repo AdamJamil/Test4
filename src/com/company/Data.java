@@ -7,13 +7,15 @@ import java.util.HashMap;
 public class Data implements java.io.Serializable
 {
     private Player player = new Player();
-    private int currentMap = 0;
-    private HashMap<Short, Image> textures = new HashMap<>();
-    private HashMap<Short, Map> maps = new HashMap<>();
+    private Short currentMapIndex = 0;
+    private Map currentMap;
+    private HashMap<Short, Image> textures;
+    private HashMap<Short, Map> maps;
 
     public Data()
     {
-
+        textures = new HashMap<>();
+        maps = new HashMap<>();
     }
 
     public Player getPlayer()
@@ -21,13 +23,14 @@ public class Data implements java.io.Serializable
         return player;
     }
 
-    public void setCurrentMap(int newMap)
+    public void setCurrentMap(Map newMap)
     {
         currentMap = newMap;
     }
 
-    public int getCurrentMap()
+    public Map getCurrentMap()
     {
+        currentMap = maps.get(currentMapIndex);
         return currentMap;
     }
 
