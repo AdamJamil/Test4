@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import java.awt.FontFormatException;
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -34,63 +35,67 @@ import javax.sound.midi.Sequencer;
 public class Main extends Application implements Constants
 {
     public ViewPortLoader vpl;
-    private Player player;
     private Data data = new Data();
-    Image img = null;
 
     @Override
     public void start(Stage primaryStage)
     {
         Gson gson = new Gson();
-        HashMap<Short, Image> textures = new HashMap<>();
-        HashMap<Short, Map> maps = new HashMap<>();
-        short mapsToLoad = 1;
+        short mapsToLoad = 1, imagesToLoad = 0;
         short imagesLoaded = 0, mapsLoaded = 0;
 
-        primaryStage.setTitle("Test");                                                       //loads javafx setup
-        Canvas canvas = new Canvas(pixelWidth, pixelHeight);                                 //this code is mostly irrelevant and only implements the
-        StackPane root = new StackPane();                                                    //javafx canvas, root and scene.
-        root.getChildren().add(canvas);                                                      //the screen size and listeners are also added in here
+        //loads javafx setup
+        //this code is mostly irrelevant and only implements the
+        //javafx canvas, root and scene.
+        //the screen size and listeners are also added in here
+        primaryStage.setTitle("Test");
+        Canvas canvas = new Canvas(pixelWidth, pixelHeight);
+        StackPane root = new StackPane();
+        root.getChildren().add(canvas);
         Scene scene = new Scene(root, pixelWidth, pixelHeight);
         scene.setOnKeyPressed(this::onKeyPressed);
         scene.setOnKeyReleased(this::onKeyReleased);
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        try                                                                                  //loads all images from Textures into the HashMap,
-        {                                                                                    //and logs them based on the number assigned to their name
-            for(imagesLoaded = 0; imagesLoaded >= 0; imagesLoaded++)
-            {
-                textures.put(imagesLoaded, new Image("Textures//" + Short.toString(imagesLoaded) + ".png"));
-                System.out.println(textures.get(imagesLoaded).getHeight());
-            }
-        }
-        catch(IllegalArgumentException e)
-        {
-            e.printStackTrace();
-            System.out.println("Successfully loaded " + (imagesLoaded) + " image(s)!");
-        }
-
-        //this block of code (below) takes the string from the file 'maps//0.txt', etc. and converts from json format into a map information object
-        //it is then put into the hashmap with the key of a number, and that number is the same as the file location name
-        //since the Image class cannot be loaded through a JSON, it is loaded separately
+        //loads all images from Textures into the HashMap,
+        //and logs them based on the number assigned to their name
         try
         {
-            for(mapsLoaded = 0; mapsLoaded < mapsToLoad; mapsLoaded++)
+            for(imagesLoaded = 0; imagesLoaded < imagesToLoad; imagesLoaded++)
             {
-                maps.put(mapsLoaded, gson.fromJson(new Scanner(new File(MyClass.class.getResource("../path/to/tests/" + name).getFile())).useDelimiter("\\Z").next(), Map.class));
+                InputStream inputStream = new FileInputStream(new File("./res/Textures/" + Short.toString(imagesLoaded) + ".png"));
+                data.getTextures().put(imagesLoaded, new Image(inputStream));
             }
         }
         catch(IllegalArgumentException|FileNotFoundException e)
         {
             e.printStackTrace();
-            System.out.println("Successfully loaded " + (mapsLoaded) + " map(s)!");
         }
 
-        vpl = new ViewPortLoader(canvas.getGraphicsContext2D(), data);                       //gives the ViewPortLoader the relevant information to draw
-                                                                                             //and the canvas, onto which it will draw
+        //this block of code (below) takes the string from the file 'maps//0.txt', etc. and converts from json format into a map information object
+        //it is then put into the hashmap with the key of a number, and that number is the same as the file location name
+        //since the Image class cannot be loaded through a JSON, it is loaded separately (the image is also marked as transient, to dodge serialization)
+        try
+        {
+            for(mapsLoaded = 0; mapsLoaded < mapsToLoad; mapsLoaded++)
+            {
+                Map temp = gson.fromJson(new Scanner(new File("./res/Maps/0.txt")).useDelimiter("\\Z").next(), Map.class);
+                InputStream inputStream = new FileInputStream(new File("./res/Maps/" + Short.toString(mapsLoaded) + ".png"));
+                temp.setImageSource(new Image(inputStream));
+                data.getMaps().put(mapsLoaded, temp);
+            }
+        }
+        catch(IllegalArgumentException|FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
 
-        KeyFrame frame = new KeyFrame(Duration.millis(4f), (event) -> vpl.loadViewPort());   //sets loop to 4ms delay, and calls the art loader
+        //gives the ViewPortLoader the relevant information with which to draw
+        vpl = new ViewPortLoader(canvas.getGraphicsContext2D(), data);
+
+        //sets loop to 4ms delay, and calls the art loader
+        KeyFrame frame = new KeyFrame(Duration.millis(4f), (event) -> vpl.loadViewPort());
         Timeline timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.setAutoReverse(true);

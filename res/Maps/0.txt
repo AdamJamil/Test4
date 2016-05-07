@@ -1,6 +1,5 @@
 {
     "mapWidth": 100,
     "mapHeight": 100,
-    "imageMap": null,
     "imageMapID": 0
 }

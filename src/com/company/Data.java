@@ -1,10 +1,15 @@
 package com.company;
 
+import javafx.scene.image.Image;
+
+import java.util.HashMap;
+
 public class Data implements java.io.Serializable
 {
     private Player player = new Player();
     private int currentMap = 0;
-    private Map instanceMap = null;
+    private HashMap<Short, Image> textures = new HashMap<>();
+    private HashMap<Short, Map> maps = new HashMap<>();
 
     public Data()
     {
@@ -24,5 +29,15 @@ public class Data implements java.io.Serializable
     public int getCurrentMap()
     {
         return currentMap;
+    }
+
+    public HashMap<Short, Image> getTextures()
+    {
+        return textures;
+    }
+
+    public HashMap<Short, Map> getMaps()
+    {
+        return maps;
     }
 }
