@@ -8,6 +8,7 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.Scene;
@@ -16,8 +17,9 @@ import javafx.util.Duration;
 
 public class Main extends Application implements Constants
 {
-    public ViewPortLoader vpl;
+    private ViewPortLoader vpl;
     private Data data = new Data();
+    private InputHandler inputHandler = new InputHandler();
 
     @Override
     public void start(Stage primaryStage)
@@ -80,6 +82,10 @@ public class Main extends Application implements Constants
         KeyFrame frame = new KeyFrame(Duration.millis(4f), (event) ->
         {
             vpl.loadViewPort();
+            KeyCode action = inputHandler.getAction();
+            System.out.println(action);
+            if (action == KeyCode.S)
+                data.getPlayer().incrementY(1);
         });
 
         //this just puts the timeline (or main game logic) in motion
@@ -93,12 +99,12 @@ public class Main extends Application implements Constants
 
     public void onKeyPressed(KeyEvent e)
     {
-
+        inputHandler.keyPressed(e);
     }
 
     public void onKeyReleased(KeyEvent e)
     {
-
+        inputHandler.keyReleased(e);
     }
 
     public static void main(String[] args)

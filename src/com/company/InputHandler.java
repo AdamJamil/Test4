@@ -1,51 +1,35 @@
 package com.company;
 
-import java.awt.event.*;
-import java.awt.Component;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class InputHandler implements KeyListener
+public class InputHandler
 {
-    private ArrayList<Integer> stack = new ArrayList<Integer>();
+    private ArrayList<KeyCode> stack = new ArrayList<>();
     boolean inStack = false;
-    private boolean [] keys = new boolean[256];
+    private HashMap<KeyCode, Boolean> keys = new HashMap<>();
 
-    //adds new listener to component
-    public InputHandler(Component c)
-    {
-        c.addKeyListener(this);
-    }
     //returns if a key is down and returns the keyCode if it is
-    public boolean isKeyDown(int keyCode)
+    public boolean isKeyDown(KeyCode keyCode)
     {
-        if (keyCode > 0 && keyCode <256)
-            return keys[keyCode];
-        else
-            return false;
+        return keys.get(keyCode);
     }
 
-    public void keyPressed(KeyEvent e)                  // Sets the index of the key pressed's keyCode to true              lollerz
+    public void keyPressed(KeyEvent e)                  // Sets the index of the key pressed's keyCode to true
     {                                                   // adds the current key pressed's keyCode to the stack
-        if(e.getKeyCode() > 0 && e.getKeyCode() < 256)
-        {
-            keys[e.getKeyCode()] = true;
-            addStack(e.getKeyCode());
-        }
+        keys.put(e.getCode(), true);
+        addStack(e.getCode());
     }
 
     public void keyReleased(KeyEvent e)                 //Sets the index of the key released's keyCode to false
     {                                                   //removes any key released from the stack
-        if(e.getKeyCode() > 0 && e.getKeyCode() < 256)
-        {
-            keys[e.getKeyCode()] = false;
-            removeStack(e.getKeyCode());
-        }
+        keys.put(e.getCode(), false);
+        removeStack(e.getCode());
     }
-    //Empty
-    public void keyTyped(KeyEvent e) {}
 
-
-    public void addStack(int x)                         //If the stack size is 0 it just adds the integer to the arraylist
+    public void addStack(KeyCode x)                     //If the stack size is 0 it just adds the integer to the arraylist
     {                                                   //Otherwise it scans through the list to see if it already exists
         if (stack.size() == 0)                          //If it does exist the element is not added
             stack.add(x);
@@ -61,17 +45,24 @@ public class InputHandler implements KeyListener
         }
     }
 
-    public void removeStack(int x)                      //Searches through the stack and removes the element that matches the parameter value
+    public void removeStack(KeyCode x)                      //Searches through the stack and removes the element that matches the parameter value
     {
         for(int i = stack.size() - 1; i >= 0; i--)
         {
             if(stack.get(i)== x)
                 stack.remove(i);
         }
-
     }
+
+    public KeyCode getAction()
+    {
+        if (stack.size() == 0)
+            return KeyCode.DEAD_ABOVEDOT;
+        return stack.get(0);
+    }
+
     //returns an element at a specific index of stack
-    public int getIndex(int a)
+    public KeyCode getIndex(int a)
     {
         return stack.get(a);
     }
