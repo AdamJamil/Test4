@@ -86,6 +86,12 @@ public class Main extends Application implements Constants
             System.out.println(action);
             if (action == KeyCode.S)
                 data.getPlayer().incrementY(1);
+            if (action == KeyCode.W)
+                data.getPlayer().incrementY(-1);
+            if (action == KeyCode.A)
+                data.getPlayer().incrementX(-1);
+            if (action == KeyCode.D)
+                data.getPlayer().incrementX(1);
         });
 
         //this just puts the timeline (or main game logic) in motion
