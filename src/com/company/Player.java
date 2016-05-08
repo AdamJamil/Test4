@@ -6,7 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-public class Player extends Drawable implements java.io.Serializable
+public class Player extends Drawable
 {
     private int x;
     private int y;

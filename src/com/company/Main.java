@@ -79,10 +79,8 @@ public class Main extends Application implements Constants
         vpl = new ViewPortLoader(canvas.getGraphicsContext2D(), data);
 
         //sets loop to 4ms delay, and calls the art loader
-        data.getPlayer().setX(750);
-        data.getPlayer().setY(250);
-        //canvas.translateXProperty().setValue(-pixelWidth / (scale));
-        //canvas.translateYProperty().setValue(-pixelHeight / (scale));
+        data.getPlayer().setX(0);
+        data.getPlayer().setY(0);
         KeyFrame frame = new KeyFrame(Duration.millis(4f), (event) ->
         {
             vpl.loadViewPort();

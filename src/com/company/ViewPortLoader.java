@@ -70,18 +70,24 @@ public class ViewPortLoader implements Constants
         }
 
         //the loop is self-explanatory
-        for(int i = cameraStartX / tileSize; i < (cameraStartX / tileSize) + width; i++)
+        drawTiles:
         {
-            for(int j = cameraStartY / tileSize; j < (cameraStartX / tileSize) + width; j++)
+            for (int i = cameraStartX / tileSize; i < (cameraStartX / tileSize) + width + 1; i++)
             {
-                graphicsContext.drawImage(textures.get(currentMap.getImageMap()[i][j]),      //i and j have to be shifted back to 0 in order to draw to the screen properly
-                    ((i - cameraStartX / tileSize) * tileSize * scale) - relPlayerShiftX * scale,            //the imagemap stores which image to draw to each tile
-                    ((j - cameraStartY / tileSize) * tileSize * scale) - relPlayerShiftY * scale,
-                    tileSize * scale, tileSize * scale);
+                for (int j = cameraStartY / tileSize; j < (cameraStartY / tileSize) + height + 1; j++)
+                {
+                    if (currentMap.getImageMap().length == i || currentMap.getImageMap()[0].length == j)
+                        break;
+                    graphicsContext.drawImage(textures.get(currentMap.getImageMap()[i][j]),      //i and j have to be shifted back to 0 in order to draw to the screen properly
+                            ((i - cameraStartX / tileSize) * tileSize) - relPlayerShiftX,            //the imagemap stores which image to draw to each tile
+                            ((j - cameraStartY / tileSize) * tileSize) - relPlayerShiftY,
+                            tileSize, tileSize
+                    );
+                }
             }
         }
 
         //draws the player with the available sprite in player(which extends drawable)
-        graphicsContext.drawImage(player.getSprite(), relPlayerX, relPlayerY, tileSize * scale, tileSize * scale);
+        graphicsContext.drawImage(player.getSprite(), relPlayerX, (relPlayerY - 8), player.getSprite().getWidth(), player.getSprite().getHeight());
     }
 }
