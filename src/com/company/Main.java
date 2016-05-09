@@ -17,7 +17,7 @@ import javafx.util.Duration;
 
 public class Main extends Application implements Constants
 {
-    private ViewPortLoader vpl;
+    private ViewPortLoader viewPortLoader;
     private Data data = new Data();
     private InputHandler inputHandler = new InputHandler();
 
@@ -76,14 +76,14 @@ public class Main extends Application implements Constants
         }
 
         //gives the ViewPortLoader the relevant information with which to draw
-        vpl = new ViewPortLoader(canvas.getGraphicsContext2D(), data);
+        viewPortLoader = new ViewPortLoader(canvas.getGraphicsContext2D(), data);
 
         //sets loop to 4ms delay, and calls the art loader
         data.getPlayer().setX(0);
         data.getPlayer().setY(0);
         KeyFrame frame = new KeyFrame(Duration.millis(4f), (event) ->
         {
-            vpl.loadViewPort();
+            viewPortLoader.loadViewPort();
             KeyCode action = inputHandler.getAction();
             if (action == KeyCode.S)
                 data.getPlayer().incrementY(1);

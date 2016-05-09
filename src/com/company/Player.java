@@ -6,15 +6,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-public class Player extends Drawable
+public class Player extends WalkingObject
 {
-    private int x;
-    private int y;
-
     public Player()
     {
-        x = 0;
-        y = 0;
         walkingStatus = WalkingStatus.F0;
         InputStream inputStream = null;
         try
@@ -27,36 +22,4 @@ public class Player extends Drawable
         }
         sprites.put(WalkingStatus.F0, new Image(inputStream));
     }
-
-    public int getX()
-    {
-        return x;
-    }
-
-    public void setX(int x)
-    {
-        this.x = x;
-    }
-
-    public void incrementX(int increment)
-    {
-        x += increment;
-    }
-
-    public void incrementY(int increment)
-    {
-        y += increment;
-    }
-
-    public int getY()
-    {
-        return y;
-    }
-
-    public void setY(int y)
-    {
-        this.y = y;
-    }
-
-
 }
