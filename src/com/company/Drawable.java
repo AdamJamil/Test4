@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 
 public class Drawable
 {
-    private Status status;
+    private Direction status;
     transient HashMap<Status, Image> sprites = new HashMap<>();
 
     public Image getSprite()
@@ -19,6 +19,11 @@ public class Drawable
     }
 
     public void setStatus(Status status)
+    {
+        this.status = status;
+    }
+
+    public void setStatus(byte status)
     {
         this.status = status;
     }
