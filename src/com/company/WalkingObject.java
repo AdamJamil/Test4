@@ -21,7 +21,8 @@ public class WalkingObject extends Drawable
         timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.setAutoReverse(true);
-        //dir -> (0 = still, 1 = north, 2 = east, 3 = south, 4 = west)
+
+        //dir -> (0 = west, 1 = north, 2 = east, 3 = south)
         KeyFrame frame = new KeyFrame(Duration.millis(delay), (event) ->
         {
             tick++;
@@ -35,18 +36,17 @@ public class WalkingObject extends Drawable
     public void checkWalkingStatus()
     {
         if (tick == 0)
-            walkingStatus = WalkingStatus.B0;
+            this.setStatus(Status.B0);
         if (tick == 16)
-            walkingStatus = WalkingStatus.B1;
+            this.setStatus(Status.B1);
         if (tick == 32)
-            walkingStatus = WalkingStatus.B0;
+            this.setStatus(Status.B0);
         if (tick == 48)
-            walkingStatus = WalkingStatus.B2;
+            this.setStatus(Status.B2);
         if (tick == 64)
         {
-            walkingStatus = WalkingStatus.B0;
+            this.setStatus(Status.B0);
             tick = 0;
-            direction = 0;
         }
     }
 

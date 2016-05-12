@@ -5,11 +5,21 @@ import javafx.scene.image.Image;
 
 public class Drawable
 {
-    WalkingStatus walkingStatus;
-    transient HashMap<WalkingStatus, Image> sprites = new HashMap<>();
+    private Status status;
+    transient HashMap<Status, Image> sprites = new HashMap<>();
 
     public Image getSprite()
     {
-        return sprites.get(this.walkingStatus);
+        return sprites.get(this.status);
+    }
+
+    public Status getStatus()
+    {
+        return status;
+    }
+
+    public void setStatus(Status status)
+    {
+        this.status = status;
     }
 }

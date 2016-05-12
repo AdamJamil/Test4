@@ -10,7 +10,7 @@ public class Player extends WalkingObject
 {
     public Player()
     {
-        walkingStatus = WalkingStatus.F0;
+        this.setStatus(Status.F0);
         InputStream inputStream = null;
         try
         {
@@ -20,6 +20,6 @@ public class Player extends WalkingObject
         {
             e.printStackTrace();
         }
-        sprites.put(WalkingStatus.F0, new Image(inputStream));
+        sprites.put(Status.F0, new Image(inputStream));
     }
 }

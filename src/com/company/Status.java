@@ -1,8 +1,8 @@
 package com.company;
 
-public enum WalkingStatus
+public enum Status
 {
-    B0(0x0),
+    B0(0x0, 0x0),
     B1(0x1),
     B2(0x2),
     R0(0x3),
@@ -15,10 +15,12 @@ public enum WalkingStatus
     L1(0xA),
     L2(0xB);
 
+    public final byte walkingStatus;
     public final byte status;
 
-    WalkingStatus(int val)
+    Status(int status, int walkingStatus)
     {
-        this.status = (byte)val;
+        this.status = status;
+        this.walkingStatus = walkingStatus;
     }
 }
