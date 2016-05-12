@@ -15,6 +15,20 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+//current record for setting up intellij is 61 minutes
+//had to reinstall github 3-4 times
+//had to use powershell to get around cmd not being accessible
+//downloads were getting crapped on
+//uninstall couldn't be access
+//move setup into apps (??) and it redownloaded
+//didn't work so i used powershell to exit dfsvc.exe and deleted 2.0 from apps
+//launched the github download from IE and it worked(????)
+//finally got this shit to run from here by manually downloading
+//attempting to merge branch...
+//VCS wasn't set up(????????????????????????????????????)
+//time is now 78 minutes
+//rip
+
 public class Main extends Application implements Constants
 {
     private ViewPortLoader viewPortLoader;
