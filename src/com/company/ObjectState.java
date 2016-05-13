@@ -7,7 +7,7 @@ public class ObjectState
 {
     Direction direction = Direction.FRONT;
     AnimationStep animationStep = AnimationStep.ZERO;
-    Status
+    Status status = Status.IDLE;
 
     public ObjectState(int direction, int animationStep)
     {
@@ -35,9 +35,19 @@ public class ObjectState
         this.animationStep = animationStep;
     }
 
+    public Status getStatus()
+    {
+        return status;
+    }
+
+    public void setStatus(Status status)
+    {
+        this.status = status;
+    }
+
     public int getAnimationStepInt()
     {
-        return (int)animationStep.animationStep;
+        return (int)animationStep.getAnimationStep();
     }
 
     public String toString()

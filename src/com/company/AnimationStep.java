@@ -7,7 +7,7 @@ public enum AnimationStep
     TWO(0x2),
     THREE(0x3);
 
-    byte animationStep;
+    private byte animationStep;
 
     AnimationStep(int animationStep)
     {

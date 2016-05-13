@@ -22,7 +22,7 @@ public class WalkingObject extends Drawable implements Constants
         {
             tick++;
             tick %= 64;
-            if (this.getSpriteKey().getAnimationStepInt() == walking)
+            if (this.getObjectState().getStatus() == Status.WALKING)
             {
                 moveObject();
                 if (tick % 16 == 0)
@@ -39,29 +39,30 @@ public class WalkingObject extends Drawable implements Constants
 
     public void moveObject()
     {
-        if (this.getSpriteKey().getDirection() == Direction.BACK)
+        if (this.getObjectState().getDirection() == Direction.BACK)
             incrementY(-1);
-        else if (this.getSpriteKey().getDirection() == Direction.RIGHT)
+        else if (this.getObjectState().getDirection() == Direction.RIGHT)
             incrementX(1);
-        else if (this.getSpriteKey().getDirection() == Direction.FRONT)
+        else if (this.getObjectState().getDirection() == Direction.FRONT)
             incrementY(1);
-        else if (this.getSpriteKey().getDirection() == Direction.LEFT)
+        else if (this.getObjectState().getDirection() == Direction.LEFT)
             incrementX(-1);
     }
 
     public void updateWalkingStatus()
     {
         if (tick == 0)
-            this.getSpriteKey().setAnimationStep(AnimationStep.ZERO);
+            this.getObjectState().setAnimationStep(AnimationStep.ZERO);
         if (tick == 16)
-            this.getSpriteKey().setAnimationStep(AnimationStep.ONE);
+            this.getObjectState().setAnimationStep(AnimationStep.ONE);
         if (tick == 32)
-            this.getSpriteKey().setAnimationStep(AnimationStep.ZERO);
+            this.getObjectState().setAnimationStep(AnimationStep.ZERO);
         if (tick == 48)
-            this.getSpriteKey().setAnimationStep(AnimationStep.TWO);
+            this.getObjectState().setAnimationStep(AnimationStep.TWO);
         if (tick == 64)
         {
-            this.getSpriteKey().setAnimationStep(AnimationStep.ZERO);
+            this.getObjectState().setAnimationStep(AnimationStep.ZERO);
+            this.getObjectState().setStatus(Status.IDLE);
         }
     }
 
