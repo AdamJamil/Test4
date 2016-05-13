@@ -11,7 +11,6 @@ public class WalkingObject extends Drawable implements Constants
 {
     private int x;
     private int y;
-    private int direction = 0;
     private float delay = 4f;
     private short tick = 0;
     private Timeline timeline;
@@ -23,7 +22,7 @@ public class WalkingObject extends Drawable implements Constants
         {
             tick++;
             tick %= 64;
-            if (this.getStatus().walkingStatus == walking)
+            if (this.getSpriteKey().getAnimationStepInt() == walking)
             {
                 moveObject();
                 if (tick % 16 == 0)
@@ -40,28 +39,30 @@ public class WalkingObject extends Drawable implements Constants
 
     public void moveObject()
     {
-        if (direction == 0)
+        if (this.getSpriteKey().getDirection() == Direction.BACK)
             incrementY(-1);
-        else if (direction == 1)
+        else if (this.getSpriteKey().getDirection() == Direction.RIGHT)
             incrementX(1);
-        else if (direction == 2)
+        else if (this.getSpriteKey().getDirection() == Direction.FRONT)
             incrementY(1);
-        else if (direction == 3)
+        else if (this.getSpriteKey().getDirection() == Direction.LEFT)
             incrementX(-1);
     }
 
     public void updateWalkingStatus()
     {
         if (tick == 0)
-            this.setStatus((byte)((this.getStatus().status - Status.B.status) * 4));
+            this.getSpriteKey().setAnimationStep(AnimationStep.ZERO);
         if (tick == 16)
-            this.setStatus(Status.B1);
+            this.getSpriteKey().setAnimationStep(AnimationStep.ONE);
         if (tick == 32)
-            this.setStatus(Status.B0);
+            this.getSpriteKey().setAnimationStep(AnimationStep.ZERO);
         if (tick == 48)
-            this.setStatus(Status.B2);
+            this.getSpriteKey().setAnimationStep(AnimationStep.TWO);
         if (tick == 64)
-            this.setStatus(Status.B0);
+        {
+            this.getSpriteKey().setAnimationStep(AnimationStep.ZERO);
+        }
     }
 
     public int getX()

@@ -7,6 +7,4 @@ public interface Constants
     int height = 11;
     int pixelWidth = tileSize * width;
     int pixelHeight = tileSize * height;
-    byte walking = 0x0;
-    byte idle = 0x1;
 }

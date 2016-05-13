@@ -7,19 +7,29 @@ public enum AnimationStep
     TWO(0x2),
     THREE(0x3);
 
-    public final byte step;
+    byte animationStep;
 
-    AnimationStep(int step)
+    AnimationStep(int animationStep)
     {
-        this.step = (byte)step;
+        this.animationStep = (byte)animationStep;
+    }
+
+    public void setAnimationStep(int animationStep)
+    {
+        this.animationStep = (byte)animationStep;
+    }
+
+    public byte getAnimationStep()
+    {
+        return animationStep;
     }
 
     @Override
     public String toString()
     {
-        return (step == 0x0) ? ("0")
-              :(step == 0x1) ? ("1")
-              :(step == 0x2) ? ("2")
-              :("3");
+        return (animationStep == 0x0) ? ("0")
+                :(animationStep == 0x1) ? ("1")
+                :(animationStep == 0x2) ? ("2")
+                :("3");
     }
 }
