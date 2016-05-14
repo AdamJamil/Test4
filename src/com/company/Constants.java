@@ -13,4 +13,5 @@ public interface Constants
     int left = 3;
     int idle = 0;
     int walking = 1;
+    int firstTickToBuffer = 48;
 }

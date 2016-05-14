@@ -100,14 +100,7 @@ public class Main extends Application implements Constants
         {
             viewPortLoader.loadViewPort();
             KeyCode action = inputHandler.getAction();
-            if (action == KeyCode.S)
-                data.getPlayer().down();
-            if (action == KeyCode.W)
-                data.getPlayer().up();
-            if (action == KeyCode.A)
-                data.getPlayer().left();
-            if (action == KeyCode.D)
-                data.getPlayer().right();
+            data.getPlayer().handleInput(toActionCode(action));
         });
 
         //this just puts the timeline (or main game logic) in motion
@@ -117,6 +110,15 @@ public class Main extends Application implements Constants
         timeline.getKeyFrames().add(frame);
         timeline.play();
 
+    }
+
+    public int toActionCode(KeyCode input)
+    {
+        return (input == KeyCode.W) ? back :
+               (input == KeyCode.A) ? left :
+               (input == KeyCode.S) ? front :
+               (input == KeyCode.D) ? right :
+               -1;
     }
 
     public void onKeyPressed(KeyEvent e)

@@ -14,6 +14,7 @@ public class WalkingObject extends Drawable implements Constants
     private float delay = 4f;
     private short tick = 0;
     private Timeline timeline;
+    private int buffer = -1;
 
     public WalkingObject()
     {
@@ -28,6 +29,12 @@ public class WalkingObject extends Drawable implements Constants
                     updateWalkingStatus();
                 tick %= 64;
             }
+            if (this instanceof Player)
+                if (buffer != -1 && tick == 0)
+                {
+                    ((Player)this).handleInput(buffer);
+                    buffer = -1;
+                }
         });
 
         timeline = new Timeline();
@@ -94,5 +101,15 @@ public class WalkingObject extends Drawable implements Constants
     public void setY(int y)
     {
         this.y = y;
+    }
+
+    public short getTick()
+    {
+        return tick;
+    }
+
+    public void setBuffer(int buffer)
+    {
+        this.buffer = buffer;
     }
 }

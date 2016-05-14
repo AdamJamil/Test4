@@ -14,28 +14,13 @@ public class Player extends WalkingObject implements Constants
         loadImages("Player");
     }
 
-    public void down()
+    public void handleInput(int direction)
     {
-        if (this.getObjectState().getStatus() == idle)
-            handleMoveInput(front);
-    }
-
-    public void up()
-    {
-        if (this.getObjectState().getStatus() == idle)
-            handleMoveInput(back);
-    }
-
-    public void left()
-    {
-        if (this.getObjectState().getStatus() == idle)
-            handleMoveInput(left);
-    }
-
-    public void right()
-    {
-        if (this.getObjectState().getStatus() == idle)
-            handleMoveInput(right);
+        if (direction != -1)
+            if (this.getObjectState().getStatus() == idle)
+                handleMoveInput(direction);
+            else if (this.getTick() > firstTickToBuffer)
+                this.setBuffer(direction);
     }
 
     public void handleMoveInput(int direction)
