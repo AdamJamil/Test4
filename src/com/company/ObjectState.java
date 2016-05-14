@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Objects;
+
 /**
  * Created by 10009702 on 5/12/2016.
  */
@@ -10,6 +12,12 @@ public class ObjectState
     Status status = Status.IDLE;
 
     public ObjectState(int direction, int animationStep)
+    {
+        this.direction.setDirection(direction);
+        this.animationStep.setAnimationStep(animationStep);
+    }
+
+    public ObjectState(Direction direction, AnimationStep animationStep)
     {
         this.direction.setDirection(direction);
         this.animationStep.setAnimationStep(animationStep);
@@ -30,6 +38,11 @@ public class ObjectState
         return animationStep;
     }
 
+    public int getAnimationStepInt()
+    {
+        return (int)animationStep.getAnimationStep();
+    }
+
     public void setAnimationStep(AnimationStep animationStep)
     {
         this.animationStep = animationStep;
@@ -45,13 +58,27 @@ public class ObjectState
         this.status = status;
     }
 
-    public int getAnimationStepInt()
-    {
-        return (int)animationStep.getAnimationStep();
-    }
-
     public String toString()
     {
         return direction.toString() + animationStep.toString();
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return direction.getDirection() + (animationStep.getAnimationStep() * 4);
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+            return false;
+        if (this.getClass() != obj.getClass())
+            return false;
+        final ObjectState that = (ObjectState) obj;
+        if (this.direction != that.direction || this.animationStep != that.animationStep)
+            return false;
+        return true;
     }
 }

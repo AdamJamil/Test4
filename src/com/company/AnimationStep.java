@@ -19,6 +19,11 @@ public enum AnimationStep
         this.animationStep = (byte)animationStep;
     }
 
+    public void setAnimationStep(AnimationStep animationStep)
+    {
+        this.animationStep = (byte)animationStep.getAnimationStep();
+    }
+
     public byte getAnimationStep()
     {
         return animationStep;

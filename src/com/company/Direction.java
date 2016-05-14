@@ -7,7 +7,7 @@ public enum Direction
     FRONT(0x2),
     LEFT(0x3);
 
-    byte direction;
+    private byte direction;
 
     Direction(int direction)
     {
@@ -16,7 +16,13 @@ public enum Direction
 
     public void setDirection(int direction)
     {
+        System.out.println("I am here");
         this.direction = (byte)direction;
+    }
+
+    public void setDirection(Direction direction)
+    {
+        this.direction = direction.getDirection();
     }
 
     public byte getDirection()
@@ -28,8 +34,8 @@ public enum Direction
     public String toString()
     {
         return (direction == 0x0) ? ("B")
-                :(direction == 0x1) ? ("R")
-                :(direction == 0x2) ? ("F")
-                :("R");
+              :(direction == 0x1) ? ("R")
+              :(direction == 0x2) ? ("F")
+              :("R");
     }
 }
