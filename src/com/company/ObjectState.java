@@ -5,80 +5,74 @@ import java.util.Objects;
 /**
  * Created by 10009702 on 5/12/2016.
  */
-public class ObjectState
+public class ObjectState implements Constants
 {
-    Direction direction = Direction.FRONT;
-    AnimationStep animationStep = AnimationStep.ZERO;
-    Status status = Status.IDLE;
+    private int direction = front;
+    private int animationStep = 0;
+    private int status = idle;
 
     public ObjectState(int direction, int animationStep)
     {
-        this.direction.setDirection(direction);
-        this.animationStep.setAnimationStep(animationStep);
+        this.direction = direction;
+        this.animationStep = animationStep;
     }
 
-    public ObjectState(Direction direction, AnimationStep animationStep)
-    {
-        this.direction.setDirection(direction);
-        this.animationStep.setAnimationStep(animationStep);
-    }
-
-    public Direction getDirection()
+    public int getDirection()
     {
         return direction;
     }
 
-    public void setDirection(Direction direction)
+    public void setDirection(int direction)
     {
         this.direction = direction;
     }
 
-    public AnimationStep getAnimationStep()
+    public int getAnimationStep()
     {
         return animationStep;
     }
 
-    public int getAnimationStepInt()
-    {
-        return (int)animationStep.getAnimationStep();
-    }
-
-    public void setAnimationStep(AnimationStep animationStep)
+    public void setAnimationStep(int animationStep)
     {
         this.animationStep = animationStep;
     }
 
-    public Status getStatus()
+    public int getStatus()
     {
         return status;
     }
 
-    public void setStatus(Status status)
+    public void setStatus(int status)
     {
         this.status = status;
     }
 
     public String toString()
     {
-        return direction.toString() + animationStep.toString();
+        return ((direction == front) ? "F" : (direction == right) ? "R" : (direction == left)  ? "L" : "B")
+             + (Integer.toString(animationStep));
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        ObjectState that = (ObjectState) o;
+
+        if (direction != that.direction)
+            return false;
+        return animationStep == that.animationStep;
     }
 
     @Override
     public int hashCode()
     {
-        return direction.getDirection() + (animationStep.getAnimationStep() * 4);
-    }
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (obj == null)
-            return false;
-        if (this.getClass() != obj.getClass())
-            return false;
-        final ObjectState that = (ObjectState) obj;
-        if (this.direction != that.direction || this.animationStep != that.animationStep)
-            return false;
-        return true;
+        int result = direction;
+        result = 31 * result + animationStep;
+        return result;
     }
 }

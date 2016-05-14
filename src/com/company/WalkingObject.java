@@ -20,13 +20,13 @@ public class WalkingObject extends Drawable implements Constants
         //dir -> (0 = back, 1 = right, 2 = front, 3 = left)
         KeyFrame frame = new KeyFrame(Duration.millis(delay), (event) ->
         {
-            tick++;
-            tick %= 64;
-            if (this.getObjectState().getStatus() == Status.WALKING)
+            if (this.getObjectState().getStatus() == walking)
             {
+                tick++;
                 moveObject();
                 if (tick % 16 == 0)
                     updateWalkingStatus();
+                tick %= 64;
             }
         });
 
@@ -39,30 +39,30 @@ public class WalkingObject extends Drawable implements Constants
 
     public void moveObject()
     {
-        if (this.getObjectState().getDirection() == Direction.BACK)
+        if (this.getObjectState().getDirection() == back)
             incrementY(-1);
-        else if (this.getObjectState().getDirection() == Direction.RIGHT)
+        else if (this.getObjectState().getDirection() == right)
             incrementX(1);
-        else if (this.getObjectState().getDirection() == Direction.FRONT)
+        else if (this.getObjectState().getDirection() == front)
             incrementY(1);
-        else if (this.getObjectState().getDirection() == Direction.LEFT)
+        else if (this.getObjectState().getDirection() == left)
             incrementX(-1);
     }
 
     public void updateWalkingStatus()
     {
         if (tick == 0)
-            this.getObjectState().setAnimationStep(AnimationStep.ZERO);
+            this.getObjectState().setAnimationStep(0);
         if (tick == 16)
-            this.getObjectState().setAnimationStep(AnimationStep.ONE);
+            this.getObjectState().setAnimationStep(1);
         if (tick == 32)
-            this.getObjectState().setAnimationStep(AnimationStep.ZERO);
+            this.getObjectState().setAnimationStep(0);
         if (tick == 48)
-            this.getObjectState().setAnimationStep(AnimationStep.TWO);
+            this.getObjectState().setAnimationStep(2);
         if (tick == 64)
         {
-            this.getObjectState().setAnimationStep(AnimationStep.ZERO);
-            this.getObjectState().setStatus(Status.IDLE);
+            this.getObjectState().setAnimationStep(0);
+            this.getObjectState().setStatus(idle);
         }
     }
 

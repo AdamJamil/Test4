@@ -101,13 +101,13 @@ public class Main extends Application implements Constants
             viewPortLoader.loadViewPort();
             KeyCode action = inputHandler.getAction();
             if (action == KeyCode.S)
-                data.getPlayer().incrementY(1);
+                data.getPlayer().down();
             if (action == KeyCode.W)
-                data.getPlayer().incrementY(-1);
+                data.getPlayer().up();
             if (action == KeyCode.A)
-                data.getPlayer().incrementX(-1);
+                data.getPlayer().left();
             if (action == KeyCode.D)
-                data.getPlayer().incrementX(1);
+                data.getPlayer().right();
         });
 
         //this just puts the timeline (or main game logic) in motion
