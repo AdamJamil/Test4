@@ -14,7 +14,6 @@ public class Drawable
 
     public Image getSprite()
     {
-        System.out.println(sprites.containsKey(new ObjectState(2, 1)));
         return sprites.get(objectState);
     }
 
@@ -49,9 +48,7 @@ public class Drawable
         }
         catch (FileNotFoundException e)
         {
-            System.out.println("FAILURE");
         }
-        System.out.println(folderAndFileName);
         if (inputStream == null)
             return null;
         return new Image(inputStream);

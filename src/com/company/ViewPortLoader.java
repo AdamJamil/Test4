@@ -85,6 +85,6 @@ public class ViewPortLoader implements Constants
         }
 
         //draws the player with the available sprite in player(which extends drawable)
-        graphicsContext.drawImage(player.getSprite(), relPlayerX, (relPlayerY - 32), player.getSprite().getWidth(), player.getSprite().getHeight());
+        graphicsContext.drawImage(player.getSprite(), relPlayerX + ((tileSize - player.getSprite().getWidth()) / 2), relPlayerY + ((tileSize - player.getSprite().getHeight()) / 2), player.getSprite().getWidth(), player.getSprite().getHeight());
     }
 }
