@@ -7,6 +7,12 @@ import java.io.InputStream;
 import java.util.HashMap;
 import javafx.scene.image.Image;
 
+/*
+    Base class for all drawable objects (they extend from here)
+    Contains sprite HashMap and objectState, which is the key
+    loadImages must be called in order to load the sprites
+ */
+
 public class Drawable
 {
     private ObjectState objectState;
@@ -27,6 +33,7 @@ public class Drawable
         this.objectState = objectState;
     }
 
+    //temp variables is use in order to 'simulate' the key for each image, and also to get the toString()
     public void loadImages(String name)
     {
         for(int i = 0; i < 4; i++)
@@ -39,6 +46,7 @@ public class Drawable
         }
     }
 
+    //loads an image from /res/sprites/folderAndFileName
     public Image loadImage(String folderAndFileName)
     {
         InputStream inputStream = null;

@@ -5,10 +5,15 @@ import javafx.scene.input.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/*
+    Written by Kenny
+    Uses a stack to place priorities on keys pressed by order
+ */
+
 public class InputHandler
 {
-    private ArrayList<KeyCode> stack = new ArrayList<>();
     boolean inStack = false;
+    private ArrayList<KeyCode> stack = new ArrayList<>();
     private HashMap<KeyCode, Boolean> keys = new HashMap<>();
 
     //returns if a key is down and returns the keyCode if it is

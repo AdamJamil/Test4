@@ -2,16 +2,42 @@ package com.company;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
-import javafx.scene.paint.Color;
+
+/*
+    This class stores the information relevant to any world map
+    It uses an Image to load each tile, where each pixel's ARGB corresponds to a number
+    Each number corresponds to a .png, which is that tile
+    to-do: try and figure out if one can run the program in real time and change the imageSource without an I/O error
+    Potential error cause: imageMap uses Short
+    Does not rely on any other class
+ */
 
 public class Map
 {
     private int mapWidth;
     private int mapHeight;
-    //stores the image that will load the imagemap
-    transient private Image imageSource;
-    //imagemap stores the imagecode for each tile in the map (use texture code to decode)
-    transient private Short[][] imageMap;
+    transient private Image imageSource;    //stores the image that will load the imagemap
+    transient private short[][] imageMap;   //imagemap stores the imagecode for each tile in the map (use texture code to decode)
+
+    //pseudo-constructor -> loads imageSource and imageMap
+    public void setImageSource(Image imageSource)
+    {
+        this.imageSource = imageSource;
+        mapWidth = (int)imageSource.getWidth();
+        mapHeight = (int)imageSource.getHeight();
+        imageMap = new short[mapWidth][mapHeight];
+        PixelReader pixelReader = imageSource.getPixelReader();
+
+        for(int i = 0; i < imageSource.getWidth(); i++)
+            for(int j = 0; j < imageSource.getHeight(); j++)
+                imageMap[i][j] = (short)(pixelReader.getArgb(i, j));
+    }
+
+    //used in viewPortLoader
+    public short[][] getImageMap()
+    {
+        return imageMap;
+    }
 
     public int getMapHeight()
     {
@@ -26,29 +52,5 @@ public class Map
     public Image getImageSource()
     {
         return imageSource;
-    }
-
-    //psuedo-constructor
-    public void setImageSource(Image imageSource)
-    {
-        this.imageSource = imageSource;
-        mapWidth = (int)imageSource.getWidth();
-        mapHeight = (int)imageSource.getHeight();
-        imageMap = new Short[mapWidth][mapHeight];
-        //next two vars are used to convert each pixel to a single numeric value
-        PixelReader pixelReader = imageSource.getPixelReader();
-
-        for(int i = 0; i < imageSource.getWidth(); i++)
-        {
-            for(int j = 0; j < imageSource.getHeight(); j++)
-            {
-                imageMap[i][j] = (short)(pixelReader.getArgb(i, j));
-            }
-        }
-    }
-
-    public Short[][] getImageMap()
-    {
-        return imageMap;
     }
 }

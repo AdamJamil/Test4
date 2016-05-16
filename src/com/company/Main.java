@@ -112,6 +112,7 @@ public class Main extends Application implements Constants
 
     }
 
+    //switches a keycode to a direction
     public int toActionCode(KeyCode input)
     {
         return (input == KeyCode.W) ? back :

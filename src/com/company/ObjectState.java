@@ -2,8 +2,8 @@ package com.company;
 
 import java.util.Objects;
 
-/**
- * Created by 10009702 on 5/12/2016.
+/*
+    Combination of
  */
 public class ObjectState implements Constants
 {

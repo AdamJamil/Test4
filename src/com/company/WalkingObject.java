@@ -4,9 +4,13 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 
-/**
- * Created by yges on 5/8/2016.
+/*
+    Extended by anything that requires a walk method
+    Uses a keyframe to check walking status and update movement
+    Uses a buffer for any Player class that extends this
+    THIS IS ASYNCHRONOUS
  */
+
 public class WalkingObject extends Drawable implements Constants
 {
     private int x;
@@ -18,7 +22,6 @@ public class WalkingObject extends Drawable implements Constants
 
     public WalkingObject()
     {
-        //dir -> (0 = back, 1 = right, 2 = front, 3 = left)
         KeyFrame frame = new KeyFrame(Duration.millis(delay), (event) ->
         {
             if (this.getObjectState().getStatus() == walking)
