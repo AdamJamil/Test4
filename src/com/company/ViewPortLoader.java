@@ -4,14 +4,14 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import java.util.HashMap;
 
-public class ViewPortLoader implements Constants
+class ViewPortLoader implements Constants
 {
     private GraphicsContext graphicsContext;
     private Player player;
     private Data data;
     private HashMap<Short, Image> textures;
 
-    public ViewPortLoader(GraphicsContext aGraphicsContext, Data someData)
+    ViewPortLoader(GraphicsContext aGraphicsContext, Data someData)
     {
         graphicsContext = aGraphicsContext;                                                  //gets the gc that was loaded in Main, so that it can draw to it
         data = someData;                                                                     //gets more relevant information for drawing
@@ -19,7 +19,7 @@ public class ViewPortLoader implements Constants
         textures = data.getTextures();
     }
 
-    public void loadViewPort()
+    void loadViewPort()
     {
         int cameraStartX, cameraStartY;                                                      //coordinate of the top-leftmost pixel drawn
         int relPlayerX, relPlayerY;                                                          //where the player appears relative to the camera
@@ -70,8 +70,7 @@ public class ViewPortLoader implements Constants
         }
 
         //the loop is self-explanatory
-        for (int i = cameraStartX / tileSize; i < (cameraStartX / tileSize) + width + 1; i++)
-        {
+        for (int i = cameraStartX / tileSize; i < (cameraStartX / tileSize) + width + 1; i++)//no one knows why it has to be shifted by 1
             for (int j = cameraStartY / tileSize; j < (cameraStartY / tileSize) + height + 1; j++)
             {
                 if (currentMap.getImageMap().length == i || currentMap.getImageMap()[0].length == j)
@@ -82,7 +81,6 @@ public class ViewPortLoader implements Constants
                         tileSize, tileSize
                 );
             }
-        }
 
         //draws the player with the available sprite in player(which extends drawable)
         graphicsContext.drawImage(player.getSprite(), relPlayerX + ((tileSize - player.getSprite().getWidth()) / 2), relPlayerY + ((tileSize - player.getSprite().getHeight()) / 2), player.getSprite().getWidth(), player.getSprite().getHeight());

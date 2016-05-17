@@ -39,7 +39,10 @@ public class Main extends Application implements Constants
     @Override
     public void start(Stage primaryStage)
     {
+        //GSONs allow for serialization of variables
         Gson gson = new Gson();
+
+        //this must be changed when adding assets
         short mapsToLoad = 1, imagesToLoad = 3;
         short imagesLoaded, mapsLoaded;
 
@@ -113,7 +116,7 @@ public class Main extends Application implements Constants
     }
 
     //switches a keycode to a direction
-    public int toActionCode(KeyCode input)
+    private int toActionCode(KeyCode input)
     {
         return (input == KeyCode.W) ? back :
                (input == KeyCode.A) ? left :
@@ -122,12 +125,12 @@ public class Main extends Application implements Constants
                -1;
     }
 
-    public void onKeyPressed(KeyEvent e)
+    private void onKeyPressed(KeyEvent e)
     {
         inputHandler.keyPressed(e);
     }
 
-    public void onKeyReleased(KeyEvent e)
+    private void onKeyReleased(KeyEvent e)
     {
         inputHandler.keyReleased(e);
     }

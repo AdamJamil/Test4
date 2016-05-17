@@ -8,7 +8,7 @@ import java.util.HashMap;
     Creates empty new objects on start
  */
 
-public class Data implements java.io.Serializable
+class Data implements java.io.Serializable
 {
     private Player player = new Player();
     private Short currentMapIndex = 0;
@@ -16,14 +16,14 @@ public class Data implements java.io.Serializable
     private transient HashMap<Short, Image> textures;
     private transient HashMap<Short, Map> maps;
 
-    public Data()
+    Data()
     {
         textures = new HashMap<>();
         maps = new HashMap<>();
         currentMapIndex = 0;
     }
 
-    public Player getPlayer()
+    Player getPlayer()
     {
         return player;
     }
@@ -33,18 +33,18 @@ public class Data implements java.io.Serializable
         currentMap = newMap;
     }
 
-    public Map getCurrentMap()
+    Map getCurrentMap()
     {
         currentMap = maps.get(currentMapIndex);
         return currentMap;
     }
 
-    public HashMap<Short, Image> getTextures()
+    HashMap<Short, Image> getTextures()
     {
         return textures;
     }
 
-    public HashMap<Short, Map> getMaps()
+    HashMap<Short, Map> getMaps()
     {
         return maps;
     }

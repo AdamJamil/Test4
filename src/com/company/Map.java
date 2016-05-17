@@ -12,7 +12,7 @@ import javafx.scene.image.PixelReader;
     Does not rely on any other class
  */
 
-public class Map
+class Map
 {
     private int mapWidth;
     private int mapHeight;
@@ -20,7 +20,7 @@ public class Map
     transient private short[][] imageMap;   //imagemap stores the imagecode for each tile in the map (use texture code to decode)
 
     //pseudo-constructor -> loads imageSource and imageMap
-    public void setImageSource(Image imageSource)
+    void setImageSource(Image imageSource)
     {
         this.imageSource = imageSource;
         mapWidth = (int)imageSource.getWidth();
@@ -34,23 +34,25 @@ public class Map
     }
 
     //used in viewPortLoader
-    public short[][] getImageMap()
+    short[][] getImageMap()
     {
         return imageMap;
     }
 
-    public int getMapHeight()
+    int getMapHeight()
     {
         return mapHeight;
     }
 
-    public int getMapWidth()
+    int getMapWidth()
     {
         return mapWidth;
     }
 
+    /*
     public Image getImageSource()
     {
         return imageSource;
     }
+    */
 }

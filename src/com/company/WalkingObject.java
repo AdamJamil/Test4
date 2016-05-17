@@ -11,43 +11,42 @@ import javafx.util.Duration;
     THIS IS ASYNCHRONOUS
  */
 
-public class WalkingObject extends Drawable implements Constants
+class WalkingObject extends Drawable implements Constants
 {
     private int x;
     private int y;
-    private float delay = 4f;
     private short tick = 0;
-    private Timeline timeline;
-    private int buffer = -1;
+    private int buffer = noAction;
 
-    public WalkingObject()
+    WalkingObject()
     {
-        KeyFrame frame = new KeyFrame(Duration.millis(delay), (event) ->
+        KeyFrame frame = new KeyFrame(Duration.millis(4f), (event) ->
         {
             if (this.getObjectState().getStatus() == walking)
             {
                 tick++;
                 moveObject();
-                if (tick % 16 == 0)
+                if (tick % tileSize / 4 == 0)                                       //updates the status every time the player has moved across a fourth of the tile
                     updateWalkingStatus();
-                tick %= 64;
+                tick %= tileSize;                                                   //resets the clock once it hits the max
             }
-            if (this instanceof Player)
-                if (buffer != -1 && tick == 0)
+            if (this instanceof Player)                                             //this buffers inputs for any Player class
+                if (buffer != noAction && tick == 0)                                //only lets the buffer be pushed if the clock has reset
                 {
                     ((Player)this).handleInput(buffer);
-                    buffer = -1;
+                    buffer = noAction;
                 }
         });
 
-        timeline = new Timeline();
+        Timeline timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.setAutoReverse(true);
         timeline.getKeyFrames().add(frame);
         timeline.play();
     }
 
-    public void moveObject()
+    //moves the object in the direction it is moving by one
+    private void moveObject()
     {
         if (this.getObjectState().getDirection() == back)
             incrementY(-1);
@@ -59,59 +58,62 @@ public class WalkingObject extends Drawable implements Constants
             incrementX(-1);
     }
 
-    public void updateWalkingStatus()
+    //changes the animationStep every time the object has moved a quarter cross the tile
+    //on finish, the status is reset to idle
+    private void updateWalkingStatus()
     {
+        assert tick % (tileSize / 4) == 0;
         if (tick == 0)
             this.getObjectState().setAnimationStep(0);
-        if (tick == 16)
+        else if (tick == tileSize / 4)
             this.getObjectState().setAnimationStep(1);
-        if (tick == 32)
+        else if (tick == tileSize / 2)
             this.getObjectState().setAnimationStep(0);
-        if (tick == 48)
+        else if (tick == tileSize * 3 / 4)
             this.getObjectState().setAnimationStep(2);
-        if (tick == 64)
+        else if (tick == tileSize)
         {
             this.getObjectState().setAnimationStep(0);
             this.getObjectState().setStatus(idle);
         }
     }
 
-    public int getX()
-    {
-        return x;
-    }
-
-    public void setX(int x)
-    {
-        this.x = x;
-    }
-
-    public void incrementX(int increment)
+    private void incrementX(int increment)
     {
         x += increment;
     }
 
-    public void incrementY(int increment)
+    private void incrementY(int increment)
     {
         y += increment;
     }
 
-    public int getY()
+    int getX()
+    {
+        return x;
+    }
+
+    void setX(int x)
+    {
+        this.x = x;
+    }
+
+    int getY()
     {
         return y;
     }
 
-    public void setY(int y)
+    void setY(int y)
     {
         this.y = y;
     }
 
-    public short getTick()
+    short getTick()
     {
         return tick;
     }
 
-    public void setBuffer(int buffer)
+    void setBuffer(int buffer)
     {
         this.buffer = buffer;
     }
