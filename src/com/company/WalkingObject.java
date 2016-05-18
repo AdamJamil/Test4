@@ -11,7 +11,7 @@ import javafx.util.Duration;
     THIS IS ASYNCHRONOUS
  */
 
-class WalkingObject extends Drawable implements Constants
+class WalkingObject extends Drawable implements Constants, Walking
 {
     private int x;
     private int y;
