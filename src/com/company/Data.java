@@ -28,10 +28,12 @@ class Data implements java.io.Serializable
         return player;
     }
 
+    /*
     public void setCurrentMap(Map newMap)
     {
         currentMap = newMap;
     }
+    */
 
     Map getCurrentMap()
     {

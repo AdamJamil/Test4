@@ -20,7 +20,7 @@ import javafx.util.Duration;
 //had to use powershell to get around cmd not being accessible
 //downloads were getting crapped on
 //uninstall couldn't be access
-//move setup into apps (??) and it redownloaded
+//move setup into apps (??) and it re-downloaded
 //didn't work so i used powershell to exit dfsvc.exe and deleted 2.0 from apps
 //launched the github download from IE and it worked(????)
 //finally got this shit to run from here by manually downloading
@@ -112,7 +112,6 @@ public class Main extends Application implements Constants
         timeline.setAutoReverse(true);
         timeline.getKeyFrames().add(frame);
         timeline.play();
-
     }
 
     //switches a keycode to a direction

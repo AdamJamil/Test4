@@ -26,11 +26,6 @@ class ObjectState implements Constants
         this.direction = direction;
     }
 
-    public int getAnimationStep()
-    {
-        return animationStep;
-    }
-
     void setAnimationStep(int animationStep)
     {
         this.animationStep = animationStep;
@@ -62,9 +57,7 @@ class ObjectState implements Constants
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-
         ObjectState that = (ObjectState) o;
-
         return direction == that.direction && animationStep == that.animationStep;
     }
 

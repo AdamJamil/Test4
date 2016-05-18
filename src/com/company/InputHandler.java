@@ -3,7 +3,6 @@ package com.company;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /*
     Written by Kenny
@@ -12,29 +11,28 @@ import java.util.HashMap;
 
 class InputHandler
 {
-    private boolean inStack = false;
     private ArrayList<KeyCode> stack = new ArrayList<>();
-    private HashMap<KeyCode, Boolean> keys = new HashMap<>();
+    //private HashMap<KeyCode, Boolean> keys = new HashMap<>();
 
-    void keyPressed(KeyEvent e)                  // Sets the index of the key pressed's keyCode to true
-    {                                                   // adds the current key pressed's keyCode to the stack
-        keys.put(e.getCode(), true);
+    void keyPressed(KeyEvent e)                         //Sets the index of the key pressed's keyCode to true
+    {                                                   //adds the current key pressed's keyCode to the stack
+        //keys.put(e.getCode(), true);
         addToStack(e.getCode());
     }
 
-    void keyReleased(KeyEvent e)                 //Sets the index of the key released's keyCode to false
+    void keyReleased(KeyEvent e)                        //Sets the index of the key released's keyCode to false
     {                                                   //removes any key released from the stack
-        keys.put(e.getCode(), false);
+        //keys.put(e.getCode(), false);
         removeFromStack(e.getCode());
     }
 
-    private void addToStack(KeyCode x)                   //If the stack size is 0 it just adds the integer to the arraylist
+    private void addToStack(KeyCode x)                  //If the stack size is 0 it just adds the integer to the arraylist
     {                                                   //Otherwise it scans through the list to see if it already exists
         if (stack.size() == 0)                          //If it does exist the element is not added
             stack.add(x);
         else
         {
-            inStack = false;
+            boolean inStack = false;
             for(int i = stack.size() - 1; i >= 0; i--)
             {
                 if(stack.get(i) == x)
@@ -62,12 +60,12 @@ class InputHandler
     }
 
     //returns if a key is down and returns the keyCode if it is
+    /*
     boolean isKeyDown(KeyCode keyCode)
     {
         return keys.get(keyCode);
     }
 
-    /*
     public ArrayList<KeyCode> getStack()
     {
         return stack;

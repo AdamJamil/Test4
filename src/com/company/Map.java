@@ -16,13 +16,11 @@ class Map
 {
     private int mapWidth;
     private int mapHeight;
-    transient private Image imageSource;    //stores the image that will load the imagemap
     transient private short[][] imageMap;   //imagemap stores the imagecode for each tile in the map (use texture code to decode)
 
     //pseudo-constructor -> loads imageSource and imageMap
     void setImageSource(Image imageSource)
     {
-        this.imageSource = imageSource;
         mapWidth = (int)imageSource.getWidth();
         mapHeight = (int)imageSource.getHeight();
         imageMap = new short[mapWidth][mapHeight];

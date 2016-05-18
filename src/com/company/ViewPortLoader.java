@@ -32,7 +32,7 @@ class ViewPortLoader implements Constants
         //x component of camera clipping
         if (player.getX() <= (width / 2) * tileSize)                                         //checks if the camera can't move off to the left side anymore
         {                                                                                    //this clips the camera to the left bound (0)
-            cameraStartX = 0;                                                                //the camera's 0 is now the same as the map's 0, so the playerx is the same
+            cameraStartX = 0;                                                                //the camera's 0 is now the same as the map's 0, so the player x is the same
             relPlayerX = player.getX();                                                      //so they are set to the same value here
             relPlayerShiftX = 0;                                                             //since the camera isn't following the player anymore (in x), the shift becomes 0
         }
