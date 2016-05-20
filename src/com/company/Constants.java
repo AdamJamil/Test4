@@ -12,6 +12,7 @@ interface Constants
     int right = 1;
     int front = 2;
     int left = 3;
+    int refresh = 4;
     int idle = 0;
     int walking = 1;
     int firstTickToBuffer = 48;

@@ -8,6 +8,7 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -82,13 +83,15 @@ public class Main extends Application implements Constants
         {
             for(mapsLoaded = 0; mapsLoaded < mapsToLoad; mapsLoaded++)
             {
-                Map temp = gson.fromJson(new Scanner(new File("./res/Maps/0.txt")).useDelimiter("\\Z").next(), Map.class);
-                InputStream inputStream = new FileInputStream(new File("./res/Maps/" + Short.toString(mapsLoaded) + ".png"));
-                temp.setImageSource(new Image(inputStream));
+                Map temp = gson.fromJson(new Scanner(new File("./res/Maps/" + mapsLoaded + ".txt")).useDelimiter("\\Z").next(), Map.class);
+                InputStream inputStream = new FileInputStream(new File("./res/Maps/" + mapsLoaded + ".png"));
+                temp.setImageSource(new WritableImage((new Image(inputStream)).getPixelReader(), temp.getMapWidth(), temp.getMapHeight()), mapsLoaded,
+                                    this.getClass().getDeclaredMethod("refreshMap", temp.getClass()));
+                inputStream.close();
                 data.getMaps().put(mapsLoaded, temp);
             }
         }
-        catch(IllegalArgumentException|FileNotFoundException e)
+        catch(IllegalArgumentException|NoSuchMethodException|IOException e)
         {
             e.printStackTrace();
         }
@@ -103,7 +106,11 @@ public class Main extends Application implements Constants
         {
             viewPortLoader.loadViewPort();
             KeyCode action = inputHandler.getAction();
-            data.getPlayer().handleInput(toActionCode(action));
+            int actionCode = toActionCode(action);
+            if (actionCode == refresh)
+                data.getCurrentMap().update();
+            else
+                data.getPlayer().handleInput(actionCode);
         });
 
         //this just puts the timeline (or main game logic) in motion
@@ -121,7 +128,26 @@ public class Main extends Application implements Constants
                (input == KeyCode.A) ? left :
                (input == KeyCode.S) ? front :
                (input == KeyCode.D) ? right :
+               (input == KeyCode.E) ? refresh :
                -1;
+    }
+
+    //Helper methods, used in reflection
+    //BE VERY CAREFUL WITH THESE
+    void refreshMap(Map map)
+    {
+        try
+        {
+            Gson gson = new Gson();
+            Map temp = gson.fromJson(new Scanner(new File("./res/Maps/" + map.getMapCode() + ".txt")).useDelimiter("\\Z").next(), Map.class);
+            InputStream inputStream = new FileInputStream(new File("./res/Maps/" + map.getMapCode() + ".png"));
+            temp.setImageSource(new WritableImage((new Image(inputStream)).getPixelReader(), temp.getMapWidth(), temp.getMapHeight()));
+            data.getMaps().put(map.getMapCode(), temp);
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     private void onKeyPressed(KeyEvent e)

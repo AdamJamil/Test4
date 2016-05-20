@@ -26,6 +26,11 @@ class ObjectState implements Constants
         this.direction = direction;
     }
 
+    int getAnimationStep()
+    {
+        return animationStep;
+    }
+
     void setAnimationStep(int animationStep)
     {
         this.animationStep = animationStep;

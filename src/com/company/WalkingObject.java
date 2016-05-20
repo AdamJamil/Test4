@@ -11,8 +11,7 @@ import javafx.util.Duration;
     THIS IS ASYNCHRONOUS
  */
 
-class WalkingObject extends Drawable implements Constants, Walking
-{
+class WalkingObject extends Drawable implements Constants {
     private int x;
     private int y;
     private short tick = 0;
@@ -26,7 +25,7 @@ class WalkingObject extends Drawable implements Constants, Walking
             {
                 tick++;
                 moveObject();
-                if (tick % tileSize / 4 == 0)                                       //updates the status every time the player has moved across a fourth of the tile
+                if (tick % (tileSize / 4) == 0)                                       //updates the status every time the player has moved across a fourth of the tile
                     updateWalkingStatus();
                 tick %= tileSize;                                                   //resets the clock once it hits the max
             }
